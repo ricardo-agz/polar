@@ -104,6 +104,7 @@ class Settings(BaseSettings):
     USER_SESSION_TTL: timedelta = timedelta(days=31)
     USER_SESSION_COOKIE_KEY: str = "polar_session"
     USER_SESSION_COOKIE_DOMAIN: str = "127.0.0.1"
+    USER_SESSION_COOKIE_SAMESITE: Literal["lax", "none"] = "lax"
 
     # Customer session
     CUSTOMER_SESSION_TTL: timedelta = timedelta(hours=1)

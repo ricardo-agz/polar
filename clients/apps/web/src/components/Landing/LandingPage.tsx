@@ -37,7 +37,7 @@ export const PageContent = () => {
       <Section className="flex flex-col gap-y-32 py-0 md:py-0">
         <Hero
           title="Monetize your software"
-          description="Turn your software into a business with 6 lines of code"
+          description="Turn your software into a business with 6 lines of code. (Not The Real Polar)"
         >
           <GetStartedButton size="lg" text="Get Started" />
           <Link

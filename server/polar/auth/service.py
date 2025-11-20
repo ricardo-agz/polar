@@ -151,7 +151,7 @@ class AuthService:
             domain=settings.USER_SESSION_COOKIE_DOMAIN,
             secure=secure,
             httponly=True,
-            samesite="lax",
+            samesite=settings.USER_SESSION_COOKIE_SAMESITE,
         )
         return response
 
