@@ -1,7 +1,8 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas, unwrap } from '@polar-sh/client'
 import React from 'react'
+import { api } from '@/utils/client'
 
 export type AuthContextValue = {
   user?: schemas['UserRead']
@@ -33,6 +34,26 @@ export const UserContextProvider = ({
   const [user, setUser] = React.useState<schemas['UserRead'] | undefined>(_user)
   const [userOrganizations, setUserOrganizations] =
     React.useState<schemas['Organization'][]>(_userOrganizations)
+
+  React.useEffect(() => {
+    if (user !== undefined) {
+      return
+    }
+
+    // In environments where the auth middleware is disabled and
+    // therefore didn't pre-populate the user from `x-polar-user`,
+    // try to hydrate it from the API using the session cookie.
+    const loadUser = async () => {
+      try {
+        const loadedUser = await unwrap(api.GET('/v1/users/me'))
+        setUser(loadedUser)
+      } catch {
+        // Ignore errors (e.g. 401 when unauthenticated) and keep user undefined.
+      }
+    }
+
+    void loadUser()
+  }, [user])
 
   const contextValue = React.useMemo(
     () => ({
