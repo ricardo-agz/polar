@@ -47,7 +47,6 @@ def _validate_email_renderer_binary_path(value: Path) -> Path:
 
     return value
 
-
 env = Environment(os.getenv("POLAR_ENV", Environment.development))
 env_file = ".env.testing" if env == Environment.testing else ".env"
 file_extension = ".exe" if os.name == "nt" else ""
